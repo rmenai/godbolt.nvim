@@ -136,9 +136,9 @@ local function update_cursor(source_buffer, cursor_line)
 		for asm_line, _ in ipairs(entry.asm) do
 			local source_line = get_entry_source_line(entry, asm_line)
 			if source_line and (cursor_line == source_line) then
-				api.nvim_buf_add_highlight(asm_buffer, nsid, group, (asm_line - 1), 0, -1)
+				pcall(api.nvim_buf_add_highlight, asm_buffer, nsid, group, (asm_line - 1), 0, -1)
 				if not vim.tbl_contains(source_highlights, (source_line - 1)) then
-					api.nvim_buf_add_highlight(source_buffer, nsid, group, (source_line - 1), 0, -1)
+					pcall(api.nvim_buf_add_highlight, source_buffer, nsid, group, (source_line - 1), 0, -1)
 					table.insert(source_highlights, (source_line - 1))
 				else
 				end
@@ -160,9 +160,9 @@ local function init_highlight(source_buffer, asm_buffer)
 		local source_line = get_entry_source_line(entry, asm_line)
 		if source_line then
 			local group = cyclic_lookup(highlights, source_line)
-			api.nvim_buf_add_highlight(asm_buffer, nsid_static, group, (asm_line - 1), 0, -1)
+			pcall(api.nvim_buf_add_highlight, asm_buffer, nsid_static, group, (asm_line - 1), 0, -1)
 			if not vim.tbl_contains(source_highlights, (source_line - 1)) then
-				api.nvim_buf_add_highlight(source_buffer, nsid_static, group, (source_line - 1), 0, -1)
+				pcall(api.nvim_buf_add_highlight, source_buffer, nsid_static, group, (source_line - 1), 0, -1)
 				table.insert(source_highlights, (source_line - 1))
 			else
 			end
